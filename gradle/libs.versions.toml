@@ -1,12 +1,7 @@
 [versions]
 agp = "8.6.1"
-gradle = "8.1.4"
-grpcKotlinStub = "1.3.0"
-grpcNettyShaded = "1.23.0"
-grpcOkhttp = "1.56.0"
 grpcOkhttpVersion = "1.57.0"
 grpcStub = "1.57.0"
-grpcStubVersion = "1.56.0"
 javaxAnnotationApi = "1.3.2"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
@@ -17,22 +12,13 @@ appcompat = "1.7.0"
 material = "1.12.0"
 okio = "3.2.0"
 perfmarkApi = "0.26.0"
-protobufGradlePlugin = "0.9.4"
-protobufJavalite = "3.23.3"
 protobufJavaliteVersion = "3.23.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
-grpc-kotlin-stub = { module = "io.grpc:grpc-kotlin-stub", version.ref = "grpcKotlinStub" }
-grpc-netty = { module = "io.grpc:grpc-netty", version.ref = "grpcOkhttpVersion" }
-grpc-netty-shaded = { module = "io.grpc:grpc-netty-shaded", version.ref = "grpcNettyShaded" }
-grpc-okhttp = { module = "io.grpc:grpc-okhttp", version.ref = "grpcOkhttp" }
 grpc-okhttp-v1570 = { module = "io.grpc:grpc-okhttp", version.ref = "grpcOkhttpVersion" }
-grpc-protobuf = { module = "io.grpc:grpc-protobuf", version.ref = "grpcOkhttp" }
 grpc-protobuf-lite = { module = "io.grpc:grpc-protobuf-lite", version.ref = "grpcStub" }
 grpc-stub = { module = "io.grpc:grpc-stub", version.ref = "grpcStub" }
-grpc-stub-v1560 = { module = "io.grpc:grpc-stub", version.ref = "grpcStubVersion" }
 javax-annotation-api = { module = "javax.annotation:javax.annotation-api", version.ref = "javaxAnnotationApi" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -41,9 +27,6 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
 perfmark-api = { module = "io.perfmark:perfmark-api", version.ref = "perfmarkApi" }
-protobuf-gradle-plugin = { module = "com.google.protobuf:protobuf-gradle-plugin", version.ref = "protobufGradlePlugin" }
-protobuf-java = { module = "com.google.protobuf:protobuf-java", version.ref = "protobufJavalite" }
-protobuf-javalite = { module = "com.google.protobuf:protobuf-javalite", version.ref = "protobufJavalite" }
 protobuf-javalite-v3234 = { module = "com.google.protobuf:protobuf-javalite", version.ref = "protobufJavaliteVersion" }
 
 [plugins]
