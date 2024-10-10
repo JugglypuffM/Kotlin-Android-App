@@ -1,2 +1,4 @@
-target/
-.idea
+/.idea
+/.gradle
+/gradle
+local.properties
