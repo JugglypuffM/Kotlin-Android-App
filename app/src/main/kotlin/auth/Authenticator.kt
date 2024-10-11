@@ -2,6 +2,7 @@ package auth
 
 import io.grpc.ManagedChannelBuilder
 import domain.AuthResult
+import io.grpc.StatusRuntimeException
 import org.example.grpc.AuthProto.LoginRequest
 import org.example.grpc.AuthProto.RegisterRequest
 import org.example.grpc.AuthServiceGrpc
@@ -32,9 +33,14 @@ class Authenticator(private val address: String, private val port: Int) {
             .setPassword(password)
             .build()
 
-        val response = stub.register(registerRequest)
+        try{
+            val response = stub.register(registerRequest)
 
-        return AuthResult(response.success, response.message)
+            return AuthResult(response.success, response.message)
+        }
+        catch (_: StatusRuntimeException){
+            return AuthResult(false, "Failed to connect to the server")
+        }
     }
 
 
@@ -56,8 +62,13 @@ class Authenticator(private val address: String, private val port: Int) {
             .setPassword(password)
             .build()
 
-        val response = stub.login(loginRequest)
+        try{
+            val response = stub.login(loginRequest)
 
-        return AuthResult(response.success, response.message)
+            return AuthResult(response.success, response.message)
+        }
+        catch (_: StatusRuntimeException){
+            return AuthResult(false, "Failed to connect to the server")
+        }
     }
 }
