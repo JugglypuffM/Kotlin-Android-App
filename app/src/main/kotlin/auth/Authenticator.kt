@@ -36,10 +36,10 @@ class Authenticator(private val address: String, private val port: Int) {
         try{
             val response = stub.register(registerRequest)
 
-            return AuthResult(response.success, response.message)
+            return AuthResult.Success(response.message)
         }
         catch (_: StatusRuntimeException){
-            return AuthResult(false, "Failed to connect to the server")
+            return AuthResult.Failure("Failed to connect to the server")
         }
     }
 
@@ -65,10 +65,10 @@ class Authenticator(private val address: String, private val port: Int) {
         try{
             val response = stub.login(loginRequest)
 
-            return AuthResult(response.success, response.message)
+            return AuthResult.Success(response.message)
         }
         catch (_: StatusRuntimeException){
-            return AuthResult(false, "Failed to connect to the server")
+            return AuthResult.Failure("Failed to connect to the server")
         }
     }
 }
