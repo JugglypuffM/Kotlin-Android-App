@@ -25,7 +25,7 @@ class GrpcAuthenticatorTest {
     @Test
     fun `register success`() = runBlocking {
         val request = RegisterRequest.newBuilder()
-            .setName("Test User1")
+            .setName("Test User")
             .setLogin("test_login")
             .setPassword("password123")
             .build()
