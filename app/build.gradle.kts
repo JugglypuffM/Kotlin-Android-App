@@ -20,6 +20,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -44,17 +45,28 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
 
+    implementation(libs.dotenv.kotlin)
+    implementation(libs.kotlinx.coroutines.core)
+
+    implementation(libs.grpc.kotlin.stub)
     implementation(libs.grpc.okhttp.v1570)
     implementation(libs.grpc.protobuf.lite)
+    implementation(libs.grpc.core)
     implementation(libs.grpc.stub)
     implementation(libs.javax.annotation.api)
-    implementation(libs.protobuf.javalite.v3234)
     implementation(libs.perfmark.api)
     implementation(libs.okio)
-    
+
+    testImplementation(libs.mockk)
+    testImplementation(libs.junit.jupiter.api)
+    testImplementation(libs.junit.jupiter.engine)
     testImplementation(libs.junit)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.inline)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.junit.jupiter)
 }
 
 protobuf {
