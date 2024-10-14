@@ -1,4 +1,4 @@
-package auth
+package com.example.KotlinAndroidApp.auth
 
 /**
  * Интерфейс объекта для отправки запросов аутентификации на сервер

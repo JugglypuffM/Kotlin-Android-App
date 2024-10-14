@@ -1,4 +1,4 @@
-package auth
+package com.example.KotlinAndroidApp.auth
 
 import io.grpc.Status
 import io.grpc.StatusRuntimeException
