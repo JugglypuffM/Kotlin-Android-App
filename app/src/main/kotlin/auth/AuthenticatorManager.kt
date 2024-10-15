@@ -3,8 +3,17 @@ package auth
 /**
  * Синтаксис для валидации данных регистрации/авторизации
  * Является обёрткой над Authenticator @see Authenticator
+ * Класс проверяет введённое имя, логин и пароль
+ *
+ * Имя является верным если не пустое
+ * Логин является верным если не пустой и содержит '@'
+ * Пароль является корректным если содержит более пяти символов
  */
 class AuthenticatorManager(private val authenticator: Authenticator = GrpcAuthenticator()){
+    /**
+     * Валидация имени
+     * @param name имя пользователя
+     */
     private fun invalidateName(name: String): Result<String> {
         if (name.isEmpty()) {
             return Result.failure(Exception("Имя пользователя пустое"))
@@ -13,6 +22,10 @@ class AuthenticatorManager(private val authenticator: Authenticator = GrpcAuthen
         return Result.success(name)
     }
 
+    /**
+     * Валидация логина
+     * @param login логин пользователя
+     */
     private fun invalidateLogin(login: String): Result<String> {
         if(login.isEmpty()){
             return Result.failure(Exception("Логин пользователя пуст"))
@@ -25,6 +38,10 @@ class AuthenticatorManager(private val authenticator: Authenticator = GrpcAuthen
         return Result.success(login)
     }
 
+    /**
+     * Валидация пароля пользователя
+     * @param password пароль пользователя
+     */
     private fun invalidatePassword(password: String): Result<String> {
         if (password.length <= 5) {
             return Result.failure(Exception("Пароль должен содержать больше 5 символов"))
