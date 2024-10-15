@@ -1,4 +1,4 @@
-package com.example.KotlinAndroidApp
+package com.project.KotlinAndroidApp
 
 import android.os.Bundle
 import android.widget.Button
@@ -8,7 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.kotlin_android_app.R
+import com.project.kotlin_android_app.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

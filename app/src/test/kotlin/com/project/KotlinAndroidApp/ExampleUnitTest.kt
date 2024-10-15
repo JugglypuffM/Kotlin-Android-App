@@ -1,4 +1,4 @@
-package com.example.KotlinAndroidApp
+package com.project.KotlinAndroidApp
 
 import org.junit.Test
 
