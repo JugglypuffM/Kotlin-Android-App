@@ -1,4 +1,4 @@
-package com.example.KotlinAndroidApp.auth
+package auth
 
 import io.grpc.Status
 import io.grpc.StatusRuntimeException
@@ -119,4 +119,3 @@ class GrpcAuthenticatorTest {
         )
     }
 }
-

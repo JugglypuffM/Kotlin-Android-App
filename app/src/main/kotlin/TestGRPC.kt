@@ -1,7 +1,5 @@
-package com.example.KotlinAndroidApp
-
-import com.example.KotlinAndroidApp.auth.Authenticator
-import com.example.KotlinAndroidApp.auth.GrpcAuthenticator
+import auth.Authenticator
+import auth.GrpcAuthenticator
 
 suspend fun main() {
     val authenticator: Authenticator = GrpcAuthenticator()

@@ -1,4 +1,4 @@
-package com.example.KotlinAndroidApp.auth
+package auth
 
 import io.github.cdimascio.dotenv.dotenv
 import io.grpc.ManagedChannelBuilder
