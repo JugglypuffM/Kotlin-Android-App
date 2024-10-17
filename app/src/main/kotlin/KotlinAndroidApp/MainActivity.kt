@@ -1,4 +1,4 @@
-package com.project.KotlinAndroidApp
+package KotlinAndroidApp
 
 import android.os.Bundle
 import android.widget.Button
