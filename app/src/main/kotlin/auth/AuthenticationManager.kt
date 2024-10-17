@@ -15,7 +15,7 @@ class AuthenticationManager(private val authenticator: Authenticator = GrpcAuthe
      * @param name имя пользователя
      */
     private fun invalidateName(name: String): Result<String> {
-        if (name.isEmpty()) {
+        if (name.isBlank()) {
             return Result.failure(Authenticator.IncorrectNameException("Имя пользователя пустое"))
         }
 
@@ -27,7 +27,7 @@ class AuthenticationManager(private val authenticator: Authenticator = GrpcAuthe
      * @param login логин пользователя
      */
     private fun invalidateLogin(login: String): Result<String> {
-        if(login.isEmpty()){
+        if(login.isBlank()){
             return Result.failure(Authenticator.IncorrectLoginException("Логин пользователя пуст"))
         }
 

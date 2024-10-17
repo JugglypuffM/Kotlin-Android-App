@@ -58,9 +58,9 @@ class AuthenticationManagerTest {
     }
 
     @Test
-    fun `empty username`() {
+    fun `blank username`() {
         runBlocking {
-            val name = ""
+            val name = "  "
             val login = "MegaGrish1337"
             val password = "1234567"
 
@@ -73,10 +73,10 @@ class AuthenticationManagerTest {
     }
 
     @Test
-    fun `empty login`() {
+    fun `blank login`() {
         runBlocking {
             val name = "Гриша"
-            val login = ""
+            val login = "  "
             val password = "1234567"
 
             val actual = authenticationManager.register(name, login, password)
