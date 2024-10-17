@@ -1,7 +1,7 @@
 package auth
 
 /**
- * Синтаксис для валидации данных регистрации/авторизации
+ * Класс для валидации данных регистрации/авторизации
  * Является обёрткой над Authenticator @see Authenticator
  * Класс проверяет введённое имя, логин и пароль
  *
@@ -9,14 +9,14 @@ package auth
  * Логин является верным если не пустой и содержит '@'
  * Пароль является корректным если содержит более пяти символов
  */
-class AuthenticatorManager(private val authenticator: Authenticator = GrpcAuthenticator()){
+class AuthenticationManager(private val authenticator: Authenticator = GrpcAuthenticator()): Authenticator{
     /**
      * Валидация имени
      * @param name имя пользователя
      */
     private fun invalidateName(name: String): Result<String> {
         if (name.isEmpty()) {
-            return Result.failure(Exception("Имя пользователя пустое"))
+            return Result.failure(Authenticator.IncorrectNameException("Имя пользователя пустое"))
         }
 
         return Result.success(name)
@@ -28,11 +28,7 @@ class AuthenticatorManager(private val authenticator: Authenticator = GrpcAuthen
      */
     private fun invalidateLogin(login: String): Result<String> {
         if(login.isEmpty()){
-            return Result.failure(Exception("Логин пользователя пуст"))
-        }
-
-        if ('@' !in login) {
-            return Result.failure(Exception("Логин не содержит '@'"))
+            return Result.failure(Authenticator.IncorrectLoginException("Логин пользователя пуст"))
         }
 
         return Result.success(login)
@@ -43,8 +39,8 @@ class AuthenticatorManager(private val authenticator: Authenticator = GrpcAuthen
      * @param password пароль пользователя
      */
     private fun invalidatePassword(password: String): Result<String> {
-        if (password.length <= 5) {
-            return Result.failure(Exception("Пароль должен содержать больше 5 символов"))
+        if (password.length <= 6) {
+            return Result.failure(Authenticator.IncorrectPasswordException("Пароль должен содержать больше 5 символов"))
         }
 
         return Result.success(password)
@@ -55,10 +51,10 @@ class AuthenticatorManager(private val authenticator: Authenticator = GrpcAuthen
      * Проверяет корректность входных параметров
      * @param name имя пользователя - непустая строка
      * @param login логин новой учетной записи - непустая строка
-     * @param password пароль новой учетной записи - строка длиннее 5и символов
+     * @param password пароль новой учетной записи - строка длиннее 6и символов
      * @return Result с сообщением об успехе или ошибке
      */
-    suspend fun register(name: String, login: String, password: String): Result<String> {
+    override suspend fun register(name: String, login: String, password: String): Result<String> {
         return invalidateName(name).fold(
             onSuccess = { _ ->
                 invalidateLogin(login).fold(
@@ -82,7 +78,7 @@ class AuthenticatorManager(private val authenticator: Authenticator = GrpcAuthen
      * @param password пароль пользователя
      * @return Result с сообщением об успехе или ошибке
      */
-    suspend fun login(login: String, password: String): Result<String> {
+    override suspend fun login(login: String, password: String): Result<String> {
         return invalidateLogin(login).fold(
             onSuccess = { _ ->
                 invalidatePassword(password).fold(
