@@ -13,6 +13,9 @@
         android:theme="@style/Theme.KotlinAndroidApp"
         tools:targetApi="31">
         <activity
+            android:name="KotlinAndroidApp.RegistrationActivity">
+        </activity>
+        <activity
             android:name="KotlinAndroidApp.MainActivity"
             android:exported="true"
             tools:ignore="MissingClass">
@@ -21,7 +24,9 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
     </application>
 
 </manifest>
