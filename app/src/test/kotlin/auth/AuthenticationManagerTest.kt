@@ -25,14 +25,15 @@ class AuthenticationManagerTest {
         runBlocking {
             coEvery { authenticatorStub.register(any(), any(), any()) } returns successServerResult
 
-            val name = "user"
-            val login = "user@mail.com"
-            val password = "123456"
+            val name = "Гриша"
+            val login = "MegaGrish1337"
+            val password = "1234567"
 
             val expected = successServerResult
             val actual = authenticationManager.register(name, login, password)
 
             coVerify { authenticatorStub.register(name, login, password) }
+            assert(actual.isSuccess)
             assertEquals(expected, actual)
         }
     }
@@ -44,13 +45,14 @@ class AuthenticationManagerTest {
         runBlocking {
             coEvery { authenticatorStub.login(any(), any()) } returns successServerResult
 
-            val login = "user@mail.com"
-            val password = "123456"
+            val login = "MegaGrish1337"
+            val password = "1234567"
 
             val expected = successServerResult
             val actual = authenticationManager.login(login, password)
 
             coVerify { authenticatorStub.login(login, password) }
+            assert(actual.isSuccess)
             assertEquals(expected, actual)
         }
     }
@@ -59,63 +61,44 @@ class AuthenticationManagerTest {
     fun `empty username`() {
         runBlocking {
             val name = ""
-            val login = "user@mail.com"
-            val password = "123456"
+            val login = "MegaGrish1337"
+            val password = "1234567"
 
-            val expectedErrorMessage = "Имя пользователя пустое"
             val actual = authenticationManager.register(name, login, password)
 
             coVerify (exactly = 0){ authenticatorStub.register(name, login, password) }
             assert(actual.isFailure)
-            assertEquals(expectedErrorMessage, actual.exceptionOrNull()?.message)
+            assert(actual.exceptionOrNull() is Authenticator.IncorrectNameException)
         }
     }
 
     @Test
     fun `empty login`() {
         runBlocking {
-            val name = "user"
+            val name = "Гриша"
             val login = ""
-            val password = "123456"
+            val password = "1234567"
 
-            val expectedErrorMessage = "Логин пользователя пуст"
             val actual = authenticationManager.register(name, login, password)
 
             coVerify (exactly = 0){ authenticatorStub.register(name, login, password) }
             assert(actual.isFailure)
-            assertEquals(expectedErrorMessage, actual.exceptionOrNull()?.message)
-        }
-    }
-
-    @Test
-    fun `incorrect login`() {
-        runBlocking {
-            val name = "user"
-            val login = "usermail.com"
-            val password = "123456"
-
-            val expectedErrorMessage = "Логин не содержит '@'"
-            val actual = authenticationManager.register(name, login, password)
-
-            coVerify (exactly = 0){ authenticatorStub.register(name, login, password) }
-            assert(actual.isFailure)
-            assertEquals(expectedErrorMessage, actual.exceptionOrNull()?.message)
+            assert(actual.exceptionOrNull() is Authenticator.IncorrectLoginException)
         }
     }
 
     @Test
     fun `short password`() {
         runBlocking {
-            val name = "user"
-            val login = "user@mail.com"
-            val password = "12345"
+            val name = "Гриша"
+            val login = "MegaGrish1337"
+            val password = "123456"
 
-            val expectedErrorMessage = "Пароль должен содержать больше 5 символов"
             val actual = authenticationManager.register(name, login, password)
 
             coVerify(exactly = 0) { authenticatorStub.register(name, login, password) }
             assert(actual.isFailure)
-            assertEquals(expectedErrorMessage, actual.exceptionOrNull()?.message)
+            assert(actual.exceptionOrNull() is Authenticator.IncorrectPasswordException)
         }
     }
 }
