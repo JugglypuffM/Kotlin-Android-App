@@ -8,16 +8,16 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 
-class AuthenticatorManagerTest {
+class AuthenticationManagerTest {
     private lateinit var authenticatorStub: Authenticator
-    private lateinit var authenticatorManager: AuthenticatorManager
+    private lateinit var authenticationManager: AuthenticationManager
 
     val successServerResult = Result.success("хороший ответ от сервера")
 
     @Before
     fun setUp() {
         authenticatorStub = mockk<Authenticator>()
-        authenticatorManager = AuthenticatorManager(authenticatorStub)
+        authenticationManager = AuthenticationManager(authenticatorStub)
     }
 
     @Test
@@ -30,7 +30,7 @@ class AuthenticatorManagerTest {
             val password = "123456"
 
             val expected = successServerResult
-            val actual = authenticatorManager.register(name, login, password)
+            val actual = authenticationManager.register(name, login, password)
 
             coVerify { authenticatorStub.register(name, login, password) }
             assertEquals(expected, actual)
@@ -48,7 +48,7 @@ class AuthenticatorManagerTest {
             val password = "123456"
 
             val expected = successServerResult
-            val actual = authenticatorManager.login(login, password)
+            val actual = authenticationManager.login(login, password)
 
             coVerify { authenticatorStub.login(login, password) }
             assertEquals(expected, actual)
@@ -63,7 +63,7 @@ class AuthenticatorManagerTest {
             val password = "123456"
 
             val expectedErrorMessage = "Имя пользователя пустое"
-            val actual = authenticatorManager.register(name, login, password)
+            val actual = authenticationManager.register(name, login, password)
 
             coVerify (exactly = 0){ authenticatorStub.register(name, login, password) }
             assert(actual.isFailure)
@@ -79,7 +79,7 @@ class AuthenticatorManagerTest {
             val password = "123456"
 
             val expectedErrorMessage = "Логин пользователя пуст"
-            val actual = authenticatorManager.register(name, login, password)
+            val actual = authenticationManager.register(name, login, password)
 
             coVerify (exactly = 0){ authenticatorStub.register(name, login, password) }
             assert(actual.isFailure)
@@ -95,7 +95,7 @@ class AuthenticatorManagerTest {
             val password = "123456"
 
             val expectedErrorMessage = "Логин не содержит '@'"
-            val actual = authenticatorManager.register(name, login, password)
+            val actual = authenticationManager.register(name, login, password)
 
             coVerify (exactly = 0){ authenticatorStub.register(name, login, password) }
             assert(actual.isFailure)
@@ -111,7 +111,7 @@ class AuthenticatorManagerTest {
             val password = "12345"
 
             val expectedErrorMessage = "Пароль должен содержать больше 5 символов"
-            val actual = authenticatorManager.register(name, login, password)
+            val actual = authenticationManager.register(name, login, password)
 
             coVerify(exactly = 0) { authenticatorStub.register(name, login, password) }
             assert(actual.isFailure)
