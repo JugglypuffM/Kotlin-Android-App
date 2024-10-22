@@ -6,9 +6,6 @@ package auth
 interface Authenticator {
     class InvalidCredentialsException(message: String) : Exception(message)
     class UserAlreadyExistsException(message: String) : Exception(message)
-    class IncorrectNameException(message: String): Exception(message)
-    class IncorrectLoginException(message: String): Exception(message)
-    class IncorrectPasswordException(message: String): Exception(message)
 
     suspend fun register(name: String, login: String, password: String): Result<String>
     suspend fun login(login: String, password: String): Result<String>

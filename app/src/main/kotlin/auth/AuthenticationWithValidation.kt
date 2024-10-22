@@ -16,7 +16,7 @@ class AuthenticationWithValidation(private val authenticator: Authenticator = Gr
      */
     private fun invalidateName(name: String): Result<String> {
         if (name.isBlank()) {
-            return Result.failure(Authenticator.IncorrectNameException("Имя пользователя пустое"))
+            return Result.failure(Authenticator.InvalidCredentialsException("Имя пользователя пустое"))
         }
 
         return Result.success(name)
@@ -28,7 +28,7 @@ class AuthenticationWithValidation(private val authenticator: Authenticator = Gr
      */
     private fun invalidateLogin(login: String): Result<String> {
         if(login.isBlank()){
-            return Result.failure(Authenticator.IncorrectLoginException("Логин пользователя пуст"))
+            return Result.failure(Authenticator.InvalidCredentialsException("Логин пользователя пуст"))
         }
 
         return Result.success(login)
@@ -40,7 +40,7 @@ class AuthenticationWithValidation(private val authenticator: Authenticator = Gr
      */
     private fun invalidatePassword(password: String): Result<String> {
         if (password.length < 6) {
-            return Result.failure(Authenticator.IncorrectPasswordException("Пароль должен быть больше 5 символов"))
+            return Result.failure(Authenticator.InvalidCredentialsException("Пароль должен быть больше 5 символов"))
         }
 
         return Result.success(password)

@@ -68,7 +68,7 @@ class AuthenticationWithValidationTest {
 
             coVerify (exactly = 0){ authenticatorStub.register(name, login, password) }
             assert(actual.isFailure)
-            assert(actual.exceptionOrNull() is Authenticator.IncorrectNameException)
+            assert(actual.exceptionOrNull() is Authenticator.InvalidCredentialsException)
         }
     }
 
@@ -83,7 +83,7 @@ class AuthenticationWithValidationTest {
 
             coVerify (exactly = 0){ authenticatorStub.register(name, login, password) }
             assert(actual.isFailure)
-            assert(actual.exceptionOrNull() is Authenticator.IncorrectLoginException)
+            assert(actual.exceptionOrNull() is Authenticator.InvalidCredentialsException)
         }
     }
 
@@ -98,7 +98,7 @@ class AuthenticationWithValidationTest {
 
             coVerify(exactly = 0) { authenticatorStub.register(name, login, password) }
             assert(actual.isFailure)
-            assert(actual.exceptionOrNull() is Authenticator.IncorrectPasswordException)
+            assert(actual.exceptionOrNull() is Authenticator.InvalidCredentialsException)
         }
     }
 }
