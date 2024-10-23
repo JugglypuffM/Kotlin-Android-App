@@ -9,14 +9,14 @@ package auth
  * Логин является верным если не пустой и содержит '@'
  * Пароль является корректным если содержит более пяти символов
  */
-class AuthenticationManager(private val authenticator: Authenticator = GrpcAuthenticator()): Authenticator{
+class AuthenticationManager(private val authenticator: Authenticator): Authenticator{
     /**
      * Валидация имени
      * @param name имя пользователя
      */
     private fun invalidateName(name: String): Result<String> {
         if (name.isBlank()) {
-            return Result.failure(Authenticator.IncorrectNameException("Имя пользователя пустое"))
+            return Result.failure(Authenticator.InvalidCredentialsException("Имя пользователя пустое"))
         }
 
         return Result.success(name)
@@ -28,7 +28,7 @@ class AuthenticationManager(private val authenticator: Authenticator = GrpcAuthe
      */
     private fun invalidateLogin(login: String): Result<String> {
         if(login.isBlank()){
-            return Result.failure(Authenticator.IncorrectLoginException("Логин пользователя пуст"))
+            return Result.failure(Authenticator.InvalidCredentialsException("Логин пользователя пуст"))
         }
 
         return Result.success(login)
@@ -40,7 +40,7 @@ class AuthenticationManager(private val authenticator: Authenticator = GrpcAuthe
      */
     private fun invalidatePassword(password: String): Result<String> {
         if (password.length <= 6) {
-            return Result.failure(Authenticator.IncorrectPasswordException("Пароль должен содержать больше 5 символов"))
+            return Result.failure(Authenticator.InvalidCredentialsException("Пароль должен содержать больше 5 символов"))
         }
 
         return Result.success(password)
