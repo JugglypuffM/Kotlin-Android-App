@@ -2,14 +2,16 @@ package auth
 
 /**
  * Класс для валидации данных регистрации/авторизации
- * Является обёрткой над Authenticator @see Authenticator
- * Класс проверяет введённое имя, логин и пароль
+ * @param authenticator класс дальнейшая стадии регистрации/авторизации
  *
- * Имя является верным если не пустое
+ * При успешных данных передаёт результат в authentication
+ *
+ * Валидация происходит по следующему правилу
+ * Имя является не пустым
  * Логин является не пустым
- * Пароль является корректным если содержит более пяти символов
+ * Пароль содержит не менее 6и символов
  */
-class AuthenticationWithValidation(private val authenticator: Authenticator = GrpcAuthenticator()): Authenticator{
+class AuthenticationWithValidation(private val authenticator: Authenticator): Authenticator{
     /**
      * Валидация имени
      * @param name имя пользователя
@@ -40,7 +42,7 @@ class AuthenticationWithValidation(private val authenticator: Authenticator = Gr
      */
     private fun invalidatePassword(password: String): Result<String> {
         if (password.length < 6) {
-            return Result.failure(Authenticator.InvalidCredentialsException("Пароль должен быть больше 5 символов"))
+            return Result.failure(Authenticator.InvalidCredentialsException("Пароль должен быть не менее 6 символов"))
         }
 
         return Result.success(password)
@@ -49,9 +51,9 @@ class AuthenticationWithValidation(private val authenticator: Authenticator = Gr
     /**
      * Функция для регистрации нового пользователя
      * Проверяет корректность входных параметров
-     * @param name имя пользователя - непустая строка
-     * @param login логин новой учетной записи - непустая строка
-     * @param password пароль новой учетной записи - строка длиннее 5и символов
+     * @param name имя пользователя
+     * @param login логин пользователя
+     * @param password пароль пользователя
      * @return Result с сообщением об успехе или ошибке
      */
     override suspend fun register(name: String, login: String, password: String): Result<String> {
